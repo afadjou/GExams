@@ -47,7 +47,7 @@ final class SemestreFactory extends ModelFactory
     protected function getDefaults(): array
     {
         return [
-            'nom' => self::faker()->realtext(10),
+            'nom' => self::faker()->name(),
         ];
     }
 

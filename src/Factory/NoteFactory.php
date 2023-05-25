@@ -49,8 +49,8 @@ final class NoteFactory extends ModelFactory
         return [
             'etudiant' => EtudiantFactory::randomOrCreate(),
             'module' => ModuleFactory::randomOrCreate(),
-            'note' => self::faker()->randomFloat(),
-            'observation' => self::faker()->realtext(255),
+            'note' => self::faker()->numberBetween(0, 20),
+            'observation' => self::faker()->realtext(50),
         ];
     }
 

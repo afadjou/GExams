@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController as BaseCustomController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
@@ -20,12 +20,12 @@ use App\Entity\User;
 
 
 
-class DashboardController extends AbstractDashboardController
+class AnlimController extends BaseCustomController
 {
-    #[Route('/admin', name: 'dashboard')]
+    
     public function index(): Response
     {
-        return parent::index();
+        //return parent::index();
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
@@ -41,7 +41,8 @@ class DashboardController extends AbstractDashboardController
         // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
-        // return $this->render('some/path/my-dashboard.html.twig');
+       
+        return $this->render('bundle/EasyAdminBundle/layout.html.twig');
     }
 
     public function configureDashboard(): Dashboard
@@ -72,12 +73,11 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
-  
-        yield MenuItem::linkToCrud('Filiere', 'fas fa-list', Filiere::class);
-        yield MenuItem::linkToCrud('Semestre', 'fas fa-list', Semestre::class);
-        yield MenuItem::linkToCrud('Enseignant', 'fas fa-list', Enseignant::class);
-        yield MenuItem::linkToCrud('Module', 'fas fa-list', Module::class);
         yield MenuItem::linkToCrud('Etudiant', 'fas fa-list', Etudiant::class);
+        yield MenuItem::linkToCrud('Filiere', 'fas fa-list', Filiere::class);
+        yield MenuItem::linkToCrud('Enseignant', 'fas fa-list', Enseignant::class);
+        yield MenuItem::linkToCrud('Semestre', 'fas fa-list', Semestre::class);
+        yield MenuItem::linkToCrud('Module', 'fas fa-list', Module::class);
         yield MenuItem::linkToCrud('Note', 'fas fa-list', Note::class);
         yield MenuItem::linkToCrud('User', 'fas fa-list', User::class);
   

@@ -5,3 +5,7 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+
+dashboard:
+    path: /dashboard
+    controller: App\Controller\Admin\AnlimController::index   

@@ -52,7 +52,7 @@ final class UserFactory extends ModelFactory
             'locale' => 'fr',
             'password' => self::faker()->realtext(10),
             'roles' => ['ROLE_ADMIN'],
-            'username' => 'Admin',
+            'username' => self::faker()->lastname(),
         ];
     }
 

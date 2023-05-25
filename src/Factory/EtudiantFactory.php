@@ -48,7 +48,7 @@ final class EtudiantFactory extends ModelFactory
     {
         return [
             'adresse' => self::faker()->address(),
-            'cne' => self::faker()->realtext(10),
+            'cne' => self::faker()->regexify('[A-Z]{1}[0-9]{6}'),
             'nom' => self::faker()->lastname(),
             'prenom' => self::faker()->firstname(),
         ];
