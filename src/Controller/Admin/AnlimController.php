@@ -17,12 +17,29 @@ use App\Entity\Module;
 use App\Entity\Note;
 use App\Entity\Semestre;
 use App\Entity\User;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 
 
 class AnlimController extends BaseCustomController
 {
     
+    private RequestStack $rs;
+    private string $current_role;
+
+    public function __construct(RequestStack $requestStack, Security $security)
+    {
+        $this->rs = $requestStack;
+        $first_role = $security->getUser()->getRoles()[0];
+        if($this->rs->getSession()->get('_role')==null)
+            $this->rs->getSession()->set('_role', $first_role);
+  
+        $this->current_role = $this->rs->getSession()->get('_role');
+    }
+
+
+
     public function index(): Response
     {
         //return parent::index();
@@ -73,14 +90,21 @@ class AnlimController extends BaseCustomController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
-        yield MenuItem::linkToCrud('Etudiant', 'fas fa-list', Etudiant::class);
+  
         yield MenuItem::linkToCrud('Filiere', 'fas fa-list', Filiere::class);
-        yield MenuItem::linkToCrud('Enseignant', 'fas fa-list', Enseignant::class);
+    
+        if ( $this->current_role == 'ROLE_ADMIN')
+        {
         yield MenuItem::linkToCrud('Semestre', 'fas fa-list', Semestre::class);
+        }   
+        yield MenuItem::linkToCrud('Enseignant', 'fas fa-list', Enseignant::class);
         yield MenuItem::linkToCrud('Module', 'fas fa-list', Module::class);
+        yield MenuItem::linkToCrud('Etudiant', 'fas fa-list', Etudiant::class);
         yield MenuItem::linkToCrud('Note', 'fas fa-list', Note::class);
+    
+        if ( $this->current_role == 'ROLE_ADMIN')
+        {  
         yield MenuItem::linkToCrud('User', 'fas fa-list', User::class);
-  
-  
+        }
     }
 }

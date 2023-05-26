@@ -1,0 +1,18 @@
+<style>
+#listeRoles {
+
+         margin:auto;
+         margin-top:20px;
+}
+</style>
+{% set roles = app.user.getroles(TRUE) %}
+{% if roles|length > 1 %}
+    <select id="listeRoles">
+        {% for a in roles %}
+            <option value="{{ a }}" {% if a == app.session.get('_role')%} selected {%endif%}>{{ a|trans }}</option>
+        {% endfor %}
+    </select>
+{% endif %}	
+{% block javascripts %}
+     {{ encore_entry_script_tags('roles') }}
+{% endblock %}
